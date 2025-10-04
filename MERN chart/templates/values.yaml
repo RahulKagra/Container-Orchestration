@@ -1,0 +1,96 @@
+# values.yaml
+backend:
+  image: jigarmalam/mern-be
+  tag: latest
+  containerPort: 3001
+  service:
+    type: NodePort
+    port: 3001
+    nodePort: 30088
+  env:
+    - name: MONGO_URI
+      value: mongodb+srv://admin:jigar12345@cluster0.wdobega.mongodb.net/mern2
+    - name: PORT
+      value: "3001"
+  imagePullPolicy: IfNotPresent
+
+frontend:
+  image: jigarmalam/mern-fe
+  tag: latest
+  containerPort: 80
+  service:
+    type: NodePort
+    port: 80
+    nodePort: 30080
+  imagePullPolicy: IfNotPresent
+
+mongo:
+  image: mongo
+  tag: "6"
+  containerPort: 27017
+  service:
+    type: ClusterIP
+    port: 27017
+  imagePullPolicy: IfNotPresent
+serviceAccount:
+  create: true
+  name: ""
+# Service Account settings
+serviceAccount:
+  create: true
+  name: ""
+  annotations: {}
+
+# Service settings
+service:
+  type: ClusterIP
+  port: 80
+
+# Autoscaling (HPA)
+autoscaling:
+  enabled: false            # Set to true to enable the HPA
+  minReplicas: 1            # Minimum number of Pods
+  maxReplicas: 5            # Maximum number of Pods
+  targetCPUUtilizationPercentage: 80    # Target average CPU utilization (%)
+  targetMemoryUtilizationPercentage: 75 # Target average Memory utilization (%)
+
+# Ingress settings
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+
+# Image settings
+image:
+  repository: nginx
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+# Replica count
+replicaCount: 1
+
+# Resource requests & limits
+resources: {}
+# Example:
+# resources:
+#   limits:
+#     cpu: 100m
+#     memory: 128Mi
+#   requests:
+#     cpu: 100m
+#     memory: 128Mi
+
+# Node selector
+nodeSelector: {}
+
+# Tolerations
+tolerations: []
+
+# Affinity rules
+affinity: {}
